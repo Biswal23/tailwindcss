@@ -1,9 +1,8 @@
 import defaultFullConfig from '../../stubs/config.full.js'
-import oxideFullConfig from '../../stubs/config.oxide.full.js'
 import { flagEnabled } from '../featureFlags'
 
 export default function getAllConfigs(config) {
-  const configs = (config?.presets ?? [__OXIDE__ ? oxideFullConfig : defaultFullConfig])
+  const configs = (config?.presets ?? [defaultFullConfig])
     .slice()
     .reverse()
     .flatMap((preset) => getAllConfigs(preset instanceof Function ? preset() : preset))
