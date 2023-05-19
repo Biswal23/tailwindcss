@@ -1,9 +1,8 @@
 import postcss from 'postcss'
 import plugin from '../src/lib/substituteScreenAtRules'
-import config from '../stubs/config.full.js'
 import { crosscheck, css } from './util/run'
 
-function run(input, opts = config) {
+function run(input, opts) {
   return postcss([plugin({ tailwindConfig: opts })]).process(input, { from: undefined })
 }
 

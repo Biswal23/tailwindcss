@@ -592,6 +592,12 @@ describe('Init command', () => {
     if (flags.includes('--full')) {
       expect(content.split('\n').length).toBeGreaterThan(50)
     }
+
+    if (env.ENGINE === 'oxide') {
+      expect(content).not.toContain('content: []')
+    } else {
+      expect(content).toContain('content: []')
+    }
   })
 
   test('--full', async () => {
