@@ -1,38 +1,27 @@
 let fs = require('fs')
 let path = require('path')
-
-let engines = {
-  stable: {
-    files: [
-      path.resolve(__dirname, '..', 'package.stable.json'),
-      path.resolve(__dirname, '..', 'package-lock.stable.json'),
-    ],
-  },
-  oxide: {
-    files: [
-      path.resolve(__dirname, '..', 'package.oxide.json'),
-      path.resolve(__dirname, '..', 'package-lock.oxide.json'),
-    ],
-  },
-}
+let fg = require('fast-glob')
 
 // Find out what the current engine is that we are using:
-let [otherEngine, info] = Object.entries(engines).find(([, info]) =>
-  info.files.every((file) => fs.existsSync(file))
-)
+let files = fg.sync(['./{src,stubs,oxide,types}/**/*.{stable,oxide}.*', './*.{stable,oxide}.*'], {
+  cwd: path.resolve(__dirname, '..'),
+  ignore: ['node_modules/**/*', '.git/**/*', '.github/**/*', './lib/**/*'],
+})
+
+let otherEngine = files[0].includes('.stable') ? 'stable' : 'oxide'
 let currentEngine = otherEngine === 'oxide' ? 'stable' : 'oxide'
 
 console.log(`Current engine: \`${currentEngine}\`, swapping to \`${otherEngine}\``)
 
 // Swap the engines
-for (let file of info.files) {
-  fs.renameSync(
-    file.replace(`.${otherEngine}`, ''),
-    file.replace(`.${otherEngine}`, `.${currentEngine}`)
-  )
-}
-for (let file of engines[otherEngine].files) {
-  fs.renameSync(file, file.replace(`.${otherEngine}`, ''))
+for (let file of files) {
+  let currentEngineFile = file.replace(`.${otherEngine}`, `.${currentEngine}`)
+  let otherEngineFile = file
+
+  let bare = file.replace(`.${otherEngine}`, '')
+
+  fs.renameSync(bare, currentEngineFile)
+  fs.renameSync(otherEngineFile, bare)
 }
 
 console.log(
