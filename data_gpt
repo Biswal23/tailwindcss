@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Website</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Website</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>About Me</h2>
+      <p>This is a brief description of myself.</p>
+    </section>
+
+    <section>
+      <h2>Contact Me</h2>
+      <p>You can reach me at example@example.com.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 My Website. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+/* CSS styles for the website */
+
+/* Reset default browser styles */
+body, h1, h2, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styles */
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+header h1 {
+  color: #333;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Main content styles */
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #333;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
